@@ -37,7 +37,6 @@
 .app-wrapper {
   min-height: 100vh;
   background-color: #eeeeee;
-  padding-top: 30px;
 }
 
 .autoupdate {
@@ -48,6 +47,10 @@
 .wrapper {
   width: 70%;
   margin-left: 15%;
+}
+
+.add-product-wrapper.wrapper {
+  padding-top: 50px;
 }
 
 @media only screen and (max-width: 1400px) {
