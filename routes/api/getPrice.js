@@ -173,7 +173,7 @@ const scrapeImage = (baseurl, selector) => {
 
 router.get("/:name", (req, res) => {
   //   console.log(req);
-  console.log("Product Name is " + req.params.name, req.query.url);
+  //   console.log("Product Name is " + req.params.name, req.query.url);
   const name = req.params.name;
   const url = req.query.url;
   const baseUrl = getBaseUrl(url);
@@ -261,13 +261,13 @@ router.get("/:name", (req, res) => {
           trend: "No Movement Detected"
         }
       };
-      console.log("product Object", productObject);
+      //   console.log("product Object", productObject);
       res.send({
         response: productObject
       });
     })
     .catch(error => {
-      console.log(error);
+      //   console.log(error);
       res.send({
         status: "error",
         msg: response

@@ -63,7 +63,7 @@ class App extends Component {
 
   loadState = () => {
     const localState = localStorage.getItem("state");
-    console.log("loading local state", localState);
+    // console.log("loading local state", localState);
     if (localState) {
       const parsedLocal = JSON.parse(localState);
       const productList = parsedLocal.productList || {};
@@ -73,7 +73,7 @@ class App extends Component {
       const stepper = parsedLocal.stepper || 0;
       const sortBy = parsedLocal.sortBy;
       const filterBy = parsedLocal.filterBy || [];
-      console.log("state retrieved!! ", parsedLocal);
+      // console.log("state retrieved!! ", parsedLocal);
       this.setState(
         {
           productList,
@@ -132,14 +132,14 @@ class App extends Component {
   };
 
   saveAll = () => {
-    console.log("save all triggered");
-    console.log(this.state);
+    // console.log("save all triggered");
+    // console.log(this.state);
     localStorage.setItem("state", JSON.stringify(this.state));
   };
 
   addProductBasic = product => {
     //SEND PRODUCT TO SERVER
-    console.log(product.name, product.url);
+    // console.log(product.name, product.url);
     axios
       .get(`/api/getPrice/${product.name}/?url=${product.url}`)
       .then(res => {
@@ -159,7 +159,7 @@ class App extends Component {
         }
       })
       .catch(error => {
-        console.log(error.response.status);
+        // console.log(error.response.status);
         this.setState({
           response: error.response.status
         });
@@ -255,8 +255,8 @@ class App extends Component {
 
   refreshProducts = products => {
     Object.keys(products).map(key => {
-      console.log("full products", products[key]);
-      console.log("products type", products[key].type);
+      // console.log("full products", products[key]);
+      // console.log("products type", products[key].type);
       let productToRefresh = {
         productName: products[key].productName,
         url: products[key].url,
@@ -265,7 +265,7 @@ class App extends Component {
         priceIndex: products[key].priceIndex
       };
       this.updatingProduct(key);
-      console.log("product to refresh", productToRefresh);
+      // console.log("product to refresh", productToRefresh);
 
       axios
         .get(
@@ -276,7 +276,7 @@ class App extends Component {
           }`
         )
         .then(res => {
-          console.log(res.data.id, res.data.data, res.data.date);
+          // console.log(res.data.id, res.data.data, res.data.date);
           const { id, data, date } = res.data;
 
           const allProducts = { ...this.state.productList };
@@ -399,8 +399,8 @@ class App extends Component {
           }
 
           const lastMovementData = lastMovement(historyPriceArray);
-          console.log("historyPriceArray", historyPriceArray);
-          console.log("lastMovementData", lastMovementData);
+          // console.log("historyPriceArray", historyPriceArray);
+          // console.log("lastMovementData", lastMovementData);
 
           allProducts[id].movement = {
             trend: lastMovementData.trend,
