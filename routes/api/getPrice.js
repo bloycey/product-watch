@@ -83,12 +83,10 @@ const scrapeItemprop = (selector, priceIndex = 9999) => {
     for (let i = 0; i < itemproplength; i++) {
       //First look for the content attribute
       if (selector[i].attribs.content) {
-        // console.log("itemprop1", selector[i].attribs.content);
         itempropArray.push(selector[i].attribs.content);
       }
       // Then look for the price directly within the itemprop tag;
       if (selector[i].children[0] !== undefined) {
-        // console.log("itemprop2", selector[i].children[0].data)
         itempropArray.push(selector[i].children[0].data);
       }
       //Next Look for a span within the itemprop (this is a common pattern);
@@ -97,7 +95,6 @@ const scrapeItemprop = (selector, priceIndex = 9999) => {
         selector[i].children[0].next !== null
       ) {
         if (selector[i].children[0].next.name == "span") {
-          // console.log("itemprop3", selector[i].children[0].next.children[0].data)
           itempropArray.push(selector[i].children[0].next.children[0].data);
         }
       }

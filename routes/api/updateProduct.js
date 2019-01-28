@@ -83,12 +83,10 @@ const scrapeItemprop = (selector, priceIndex = 9999) => {
     for (let i = 0; i < itemproplength; i++) {
       //First look for the content attribute
       if (selector[i].attribs.content) {
-        // console.log("itemprop1", selector[i].attribs.content);
         itempropArray.push(selector[i].attribs.content);
       }
       // Then look for the price directly within the itemprop tag;
       if (selector[i].children[0] !== undefined) {
-        // console.log("itemprop2", selector[i].children[0].data)
         itempropArray.push(selector[i].children[0].data);
       }
       //Next Look for a span within the itemprop (this is a common pattern);
@@ -97,7 +95,6 @@ const scrapeItemprop = (selector, priceIndex = 9999) => {
         selector[i].children[0].next !== null
       ) {
         if (selector[i].children[0].next.name == "span") {
-          // console.log("itemprop3", selector[i].children[0].next.children[0].data)
           itempropArray.push(selector[i].children[0].next.children[0].data);
         }
       }
@@ -202,7 +199,6 @@ router.get("/:productname/:id/:type/:index", (req, res) => {
         case "jsonld":
           console.log("updated jsonld");
           let jsonld = scrapeJson(html, jsonPriceRegex, priceIndex);
-          //   mainWindow.send("price-updated", data.id, jsonld, date);
           res.send({
             id,
             data: jsonld,
@@ -215,7 +211,6 @@ router.get("/:productname/:id/:type/:index", (req, res) => {
             $("meta[property='product:price:amount']"),
             priceIndex
           );
-          //   mainWindow.send("price-updated", data.id, metaprice, date);
           res.send({
             id,
             data: metaprice,
@@ -225,7 +220,6 @@ router.get("/:productname/:id/:type/:index", (req, res) => {
         case "itemprop":
           console.log("updated itemprop");
           let itempropRaw = scrapeItemprop($("[itemprop='price']"), priceIndex);
-          //   mainWindow.send("price-updated", data.id, itempropRaw, date);
           res.send({
             id,
             data: itempropRaw,
@@ -238,7 +232,6 @@ router.get("/:productname/:id/:type/:index", (req, res) => {
             $("meta[property='price']"),
             priceIndex
           );
-          //  mainWindow.send("price-updated", data.id, genericMeta, date);
           res.send({
             id,
             data: genericMeta,
@@ -250,9 +243,6 @@ router.get("/:productname/:id/:type/:index", (req, res) => {
     .catch(error => {
       console.log(error);
     });
-
-  //   let product = req.query.productToRefresh;
-  //   console.log("update request", product);
 });
 
 module.exports = router;
