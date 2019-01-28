@@ -19,7 +19,6 @@ import sort from "fast-sort";
 import "./App.css";
 import { getTime, addSeconds, differenceInSeconds } from "date-fns";
 import axios from "axios";
-// const { ipcRenderer } = window.require("electron");
 
 const theme = createMuiTheme({
   typography: {
@@ -136,7 +135,6 @@ class App extends Component {
     console.log("save all triggered");
     console.log(this.state);
     localStorage.setItem("state", JSON.stringify(this.state));
-    // ipcRenderer.send("save-state", this.state);
   };
 
   addProductBasic = product => {
@@ -264,7 +262,6 @@ class App extends Component {
       };
       this.updatingProduct(key);
       console.log("product to refresh", productToRefresh);
-      // ipcRenderer.send("update-product", productToRefresh);
 
       axios
         .get(
@@ -275,7 +272,6 @@ class App extends Component {
           }`
         )
         .then(res => {
-          // const updateResponse = res.data.response;
           console.log(res.data.id, res.data.data, res.data.date);
           const { id, data, date } = res.data;
 
