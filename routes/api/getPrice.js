@@ -262,12 +262,16 @@ router.get("/:name", (req, res) => {
         }
       };
       console.log("product Object", productObject);
-      return res.send({
+      res.send({
         response: productObject
       });
     })
     .catch(error => {
       console.log(error);
+      res.send({
+        status: "error",
+        msg: response
+      });
     });
 });
 

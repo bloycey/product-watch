@@ -140,28 +140,32 @@ class App extends Component {
   addProductBasic = product => {
     //SEND PRODUCT TO SERVER
     console.log(product.name, product.url);
-    axios.get(`/api/getPrice/${product.name}/?url=${product.url}`).then(res => {
-      const priceResponse = res.data.response;
-      if (
-        priceResponse.status == 200 &&
-        (priceResponse.genericMeta.length !== 0 ||
-          priceResponse.itemprop.length !== 0 ||
-          priceResponse.jsonld.length !== 0 ||
-          priceResponse.metaprice.length !== 0)
-      ) {
+    axios
+      .get(`/api/getPrice/${product.name}/?url=${product.url}`)
+      .then(res => {
+        const priceResponse = res.data.response;
+        if (
+          priceResponse.status == 200 &&
+          (priceResponse.genericMeta.length !== 0 ||
+            priceResponse.itemprop.length !== 0 ||
+            priceResponse.jsonld.length !== 0 ||
+            priceResponse.metaprice.length !== 0)
+        ) {
+          this.setState({
+            currentItem: priceResponse,
+            stepper: 1,
+            response: priceResponse.status
+          });
+        }
+      })
+      .catch(error => {
+        console.log(error.response.status);
         this.setState({
-          currentItem: priceResponse,
-          stepper: 1,
-          response: priceResponse.status
-        });
-      } else {
-        this.setState({
-          response: priceResponse.status
+          response: error.response.status
         });
         this.productIsNotLoading();
         this.displayError();
-      }
-    });
+      });
   };
 
   setPrice = (setPrice, id, type, index) => {
