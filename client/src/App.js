@@ -146,16 +146,22 @@ class App extends Component {
         const priceResponse = res.data.response;
         if (
           priceResponse.status == 200 &&
-          (priceResponse.genericMeta.length !== 0 ||
-            priceResponse.itemprop.length !== 0 ||
-            priceResponse.jsonld.length !== 0 ||
-            priceResponse.metaprice.length !== 0)
+          priceResponse.genericMeta.length !== 0 &&
+          priceResponse.itemprop.length !== 0 &&
+          priceResponse.jsonld.length !== 0 &&
+          priceResponse.metaprice.length !== 0
         ) {
           this.setState({
             currentItem: priceResponse,
             stepper: 1,
             response: priceResponse.status
           });
+        } else {
+          this.setState({
+            response: priceResponse.status
+          });
+          this.productIsNotLoading();
+          this.displayError();
         }
       })
       .catch(error => {
